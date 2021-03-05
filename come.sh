@@ -21,13 +21,13 @@ CHOICE=$(dialog --clear \
 clear
 case $CHOICE in
         1)
-            sudo ./ap_mon.sh
+            sudo /home/kali/wifi/ap_mon.sh
             ;;
         2)
             tmp=$(date +%Y%m%d_%H%M%S)_"all"
             sudo mkdir $tmp   
             sudo mv all* $tmp/
-	    sudo ./reverse.sh
+	    sudo home/kali/wifi/reverse.sh
             ;;
         3)
 	    adapter=$(iw dev | awk '$1=="Interface"{print $2}' | grep "mon")

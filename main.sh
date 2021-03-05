@@ -11,9 +11,10 @@ clear
 if [ $? -eq 0 ]; then # Exit with OK
     FILE=$((FILE-1))
     adapter=${list[$FILE]}
+    sudo airmon-ng check kill
     sudo airmon-ng start $adapter
     adapter=$(iw dev | awk '$1=="Interface"{print $2}' | grep "mon")
-    sudo airodump-ng $adapter -w /home/pi/wifi/all
+    sudo airodump-ng $adapter -w /home/kali/wifi/all
 fi
 
 HEIGHT=15

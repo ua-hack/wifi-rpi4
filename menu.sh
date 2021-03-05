@@ -1,7 +1,4 @@
 #!/bin/bash
-adapter=$(iw dev | awk '$1=="Interface"{print $2}' | grep "mon")
-sudo airodump-ng $adapter -w /home/kali/wifi/all
-
 HEIGHT=15
 WIDTH=40
 CHOICE_HEIGHT=4
@@ -9,8 +6,8 @@ BACKTITLE="Циклон"
 TITLE="Циклон Wi-Fi"
 MENU="Виберіть пункт:"
 
-OPTIONS=(1 "Моніторинг точки"
-         2 "Моніторинг ефіру"
+OPTIONS=(1 "Деаутентифікація клієнта"
+         2 "Назад до меню"
          3 "Завершення роботи")
 
 CHOICE=$(dialog --clear \
@@ -24,19 +21,19 @@ CHOICE=$(dialog --clear \
 clear
 case $CHOICE in
         1)
-            sudo ./ap_mon.sh
+            sudo ./deauth.sh
             ;;
         2)
             tmp=$(date +%Y%m%d_%H%M%S)_"all"
             sudo mkdir $tmp   
             sudo mv all* $tmp/
-	    sudo ./reverse.sh
+            sudo ./reverse.sh
             ;;
         3)
-            sudo airmon-ng stop $adapter
-	    tmp=$(date +%Y%m%d_%H%M%S)_"all"
-	    sudo mkdir $tmp
-	    sudo mv all* $tmp/
+            sudo airmon-ng stop $adapter"mon"
+            tmp=$(date +%Y%m%d_%H%M%S)_"all"
+            sudo mkdir $tmp
+            sudo mv all* $tmp/
             ;;
 esac
 
